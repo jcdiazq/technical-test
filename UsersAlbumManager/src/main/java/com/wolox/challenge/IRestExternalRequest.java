@@ -1,0 +1,11 @@
+package com.wolox.challenge;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+public interface IRestExternalRequest<T> {
+	void getData() throws JsonProcessingException;
+	RestTemplate restTemplate(RestTemplateBuilder builder);
+}
