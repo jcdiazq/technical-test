@@ -1,0 +1,17 @@
+package com.wolox.challenge.domain.user;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Address {
+	
+public Addres() {
+	
+}	
+	
+private street;
+private suite;
+private city;
+private zipcode;
+private Geo geo;
+}

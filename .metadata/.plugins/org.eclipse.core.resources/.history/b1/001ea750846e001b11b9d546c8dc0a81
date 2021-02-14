@@ -1,0 +1,10 @@
+package com.wolox.challenge.logical;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
+
+public interface IRestExternalRequest {
+	void invoke();
+	void getAllData(Object[] object, String url);
+	RestTemplate restTemplate(RestTemplateBuilder builder);
+}

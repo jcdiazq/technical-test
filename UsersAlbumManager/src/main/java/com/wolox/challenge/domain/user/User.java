@@ -1,23 +1,34 @@
 package com.wolox.challenge.domain.user;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
+@Table(name="users")
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
 	public User() {
 	}
-
+	
+	@Id
 	private int id;
 	private String name;
 	private String username;
 	private String email;
+	@OneToOne(cascade=CascadeType.ALL)
 	private Address address;
 	private String phone;
 	private String website;
+	@OneToOne(cascade=CascadeType.ALL)
 	private Company company;
 
 	public int getId() {

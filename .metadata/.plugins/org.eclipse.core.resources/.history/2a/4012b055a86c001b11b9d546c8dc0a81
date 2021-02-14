@@ -1,0 +1,3 @@
+#Omitir el / al final de la URL
+rest.external.url=https://jsonplaceholder.typicode.com
+server.port=8080

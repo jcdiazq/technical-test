@@ -1,0 +1,75 @@
+package com.wolox.challenge.domain.user;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Component
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Address {
+	
+public Address() {
+}
+@Id
+@GeneratedValue
+private int id;
+private String street;
+private String suite;
+private String city;
+private String zipcode;
+@OneToOne(cascade=CascadeType.ALL)
+private Geo geo;
+@OneToOne(mappedBy="address")
+private User user;
+
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getStreet() {
+	return street;
+}
+public void setStreet(String street) {
+	this.street = street;
+}
+public String getSuite() {
+	return suite;
+}
+public void setSuite(String suite) {
+	this.suite = suite;
+}
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
+public String getZipcode() {
+	return zipcode;
+}
+public void setZipcode(String zipcode) {
+	this.zipcode = zipcode;
+}
+public Geo getGeo() {
+	return geo;
+}
+public void setGeo(Geo geo) {
+	this.geo = geo;
+}
+public User getUser() {
+	return user;
+}
+public void setUser(User user) {
+	this.user = user;
+}
+
+}

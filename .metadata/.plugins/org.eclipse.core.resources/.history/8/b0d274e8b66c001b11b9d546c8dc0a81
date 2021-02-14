@@ -1,0 +1,14 @@
+package com.wolox.challenge.domain.user;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Company {
+
+	public Company() {
+		
+	}
+	private String name;
+	private String catchPhrase;
+	private String bs;
+}

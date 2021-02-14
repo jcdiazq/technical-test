@@ -1,0 +1,17 @@
+#Omitir el simbolo "/" al final de la URL
+rest.external.url=https://jsonplaceholder.typicode.com
+rest.external.path.users=/users
+rest.external.path.albums=/albums
+rest.external.path.photos=/photos
+rest.external.path.posts=/posts
+rest.external.path.comments=/comments
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.h2.console.settings.trace=false
+spring.h2.console.settings.web-allow-others=false
+server.port=8080

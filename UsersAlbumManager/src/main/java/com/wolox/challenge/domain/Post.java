@@ -1,16 +1,23 @@
 package com.wolox.challenge.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
+@Table(name="posts")
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post {
 	public Post() {
 	}
-
+	
 	private int userId;
+	@Id
 	private int id;
 	private String title;
 	private String body;

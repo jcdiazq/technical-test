@@ -1,0 +1,32 @@
+package com.wolox.challenge;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.wolox.challenge.domain.user.User;
+
+@Service
+public class RestExternalRequest {
+	
+	private static final String URL = "https://jsonplaceholder.typicode.com/users/1"; 
+	
+	private static final Logger log = LoggerFactory.getLogger(UsersAlbumManagerApplication.class);
+	
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+	
+	@Bean
+	public CommandLineRunner run(RestTemplate restTemplate) {
+		return args -> {
+			User user = restTemplate.getForObject(URL, User.class);
+			log.info(user.toString());
+		};
+	}
+}

@@ -1,18 +1,27 @@
 package com.wolox.challenge.domain;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
+@Table(name="albums")
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Album {
 
 	public Album() {
 	}
-
-	private int userId;
+	
+	@Id
 	private int id;
+	private int userId;
 	private String title;
 
 	public int getUserId() {

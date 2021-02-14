@@ -1,0 +1,7 @@
+package com.wolox.challenge;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+public interface IRestExternalRequest<T> {
+	void getData() throws JsonProcessingException;
+}

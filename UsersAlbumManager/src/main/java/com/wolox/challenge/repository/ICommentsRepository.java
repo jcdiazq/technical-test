@@ -1,0 +1,9 @@
+package com.wolox.challenge.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.wolox.challenge.domain.Comment;
+
+public interface ICommentsRepository extends CrudRepository<Comment, Integer> {
+
+}

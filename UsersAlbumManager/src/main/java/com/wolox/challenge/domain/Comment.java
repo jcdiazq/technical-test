@@ -1,9 +1,16 @@
 package com.wolox.challenge.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
+@Table(name="comments")
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Comment {
@@ -11,9 +18,11 @@ public class Comment {
 	}
 
 	private int postId;
+	@Id
 	private int id;
 	private String name;
 	private String email;
+	@Lob
 	private String body;
 	public int getPostId() {
 		return postId;

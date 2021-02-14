@@ -1,0 +1,11 @@
+package com.wolox.challenge.repository;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface IGenericRepository<T> extends CrudRepository<T, Integer> {
+
+	void saveAll(List<Object> asList);
+
+}

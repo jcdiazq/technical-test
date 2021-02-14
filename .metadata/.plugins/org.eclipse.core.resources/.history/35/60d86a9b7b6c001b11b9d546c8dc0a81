@@ -1,0 +1,16 @@
+package com.wolox.challenge;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class UsersAlbumManagerApplication {
+	
+	@Autowired
+	private RestExternalRequest restRequest;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(UsersAlbumManagerApplication.class, args);
+	}
+}

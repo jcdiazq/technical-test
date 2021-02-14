@@ -1,0 +1,59 @@
+package com.wolox.challenge.domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Component
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Photo {
+
+	public Photo() {
+	}
+	@Column
+	private int albumId;
+	@Id
+	private int id;
+	@Column
+	private String title;
+	@Column
+	private String url;
+	@Column
+	private String thumbnailUrl;
+
+	public int getAlbumId() {
+		return albumId;
+	}
+	public void setAlbumId(int albumId) {
+		this.albumId = albumId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
+}

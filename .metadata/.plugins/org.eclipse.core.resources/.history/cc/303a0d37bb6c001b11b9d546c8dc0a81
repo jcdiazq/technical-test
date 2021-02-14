@@ -1,0 +1,47 @@
+package com.wolox.challenge;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+import com.wolox.challenge.domain.user.User;
+
+@Component
+public class RestExternalRequest {
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Value("${rest.external.url}")
+	private String URL;
+	
+	private static final String pathUser = "/users";
+	
+	private static final Logger log = LoggerFactory.getLogger(RestExternalRequest.class);
+	
+	public RestExternalRequest() {
+		// TODO Auto-generated constructor stub
+		log.info("Constructor");
+	}
+	
+	@Bean
+	public void run() {
+		ResponseEntity<User[]> users = restTemplate.getForEntity(URL.concat(pathUser), User[].class);
+		User[] usersArray = users.getBody();
+		for (User user : usersArray) {
+			log.info(user.getAddress().getGeo().toString());
+			log.info(user.toString());
+		}
+	}
+	
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+}

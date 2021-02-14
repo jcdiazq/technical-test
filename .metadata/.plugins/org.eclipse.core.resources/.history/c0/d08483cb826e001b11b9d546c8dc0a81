@@ -1,0 +1,82 @@
+package com.wolox.challenge.logical;
+
+import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wolox.challenge.domain.*;
+import com.wolox.challenge.domain.user.User;
+
+@Component
+public class RestExternalRequestImpl implements IRestExternalRequest {
+
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Autowired
+	private CrudRepository<Object, Integer> objRepository;
+
+	@Autowired
+	private User[] users;
+	@Autowired
+	private Album[] albums;
+	@Autowired
+	private Photo[] photos;
+	@Autowired
+	private Post[] posts;
+	@Autowired
+	private Comment[] comments;
+
+	@Value("${rest.external.url}")
+	private String URL;
+	private static final String pathUser = "/users";
+	private static final String pathAlbums = "/albums";
+	private static final String pathPhotos = "/photos";
+	private static final String pathPosts = "/posts";
+	private static final String pathComments = "/comments";
+
+	private static final Logger log = LoggerFactory.getLogger(RestExternalRequestImpl.class);
+
+	public RestExternalRequestImpl() {
+	}
+
+	public void invoke() {
+		getAllData(users, URL.concat(pathUser));
+		getAllData(albums, URL.concat(pathAlbums));
+		getAllData(photos, URL.concat(pathPhotos));
+		getAllData(posts, URL.concat(pathPosts));
+		getAllData(comments, URL.concat(pathComments));
+	}
+
+	public void getAllData(Object[] object, String url) {
+		final String className = object.getClass().getSimpleName();
+		try {
+			log.info(String.format("Inicia Obtención Data Externa %s",className));
+			ResponseEntity<?> objs = restTemplate.getForEntity(url, object.getClass());
+			log.info(String.format("Finaliza Obtención Data Externa %s",className));
+			object =  object.getClass().cast(objs.getBody());
+			
+			log.info(String.format("Inicia Insert de %s", className));
+			objRepository.saveAll(Arrays.asList(object));
+			log.info(String.format("Finaliza Insert de %s", className));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+}
