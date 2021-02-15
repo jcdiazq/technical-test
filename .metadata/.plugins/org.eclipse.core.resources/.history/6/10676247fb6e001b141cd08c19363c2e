@@ -1,0 +1,22 @@
+package com.wolox.challenge.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wolox.challenge.domain.Comment;
+import com.wolox.challenge.repository.ICommentsRepository;
+
+@RestController
+public class ControllerComments {
+
+	@Autowired
+	private ICommentsRepository repoComments;
+	
+	@GetMapping("/v1/comment/name/{text}")
+	public List<Comment> getCommentNameFind(){
+		return (List<Comment>) repoComments.findAll();
+	}
+}

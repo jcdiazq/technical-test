@@ -1,0 +1,23 @@
+package com.wolox.challenge.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wolox.challenge.domain.Photo;
+import com.wolox.challenge.repository.IPhotosRepository;
+
+@RestController
+public class ControllerPhotos {
+	
+	@Autowired
+	private IPhotosRepository repoPhotos;
+	
+	@GetMapping("/v1/photos")
+	public List<Photo> getAllPhotos() {
+		return (List<Photo>) repoPhotos.findAll();
+	}
+
+}

@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -20,6 +21,7 @@ public Address() {
 }
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
+@JsonIgnore
 private int id;
 private String street;
 private String suite;
@@ -27,8 +29,6 @@ private String city;
 private String zipcode;
 @OneToOne(cascade=CascadeType.ALL)
 private Geo geo;
-@OneToOne(mappedBy="address")
-private User user;
 
 public int getId() {
 	return id;
@@ -66,11 +66,4 @@ public Geo getGeo() {
 public void setGeo(Geo geo) {
 	this.geo = geo;
 }
-public User getUser() {
-	return user;
-}
-public void setUser(User user) {
-	this.user = user;
-}
-
 }

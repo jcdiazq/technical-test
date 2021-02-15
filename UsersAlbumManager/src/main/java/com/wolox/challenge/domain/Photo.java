@@ -16,9 +16,9 @@ public class Photo {
 
 	public Photo() {
 	}
-	private int albumId;
 	@Id
 	private int id;
+	private int albumId;
 	private String title;
 	private String url;
 	private String thumbnailUrl;

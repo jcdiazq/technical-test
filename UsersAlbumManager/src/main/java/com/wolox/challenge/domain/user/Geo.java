@@ -4,10 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -20,11 +20,10 @@ public Geo() {
 
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
+@JsonIgnore
 private int id;
 private float lat;
 private float lng;
-@OneToOne(mappedBy="geo")
-private Address address;
 
 public int getId() {
 	return id;
@@ -32,12 +31,12 @@ public int getId() {
 public void setId(int id) {
 	this.id = id;
 }
-public Address getAddress() {
-	return address;
-}
-public void setAddress(Address address) {
-	this.address = address;
-}
+//public Address getAddress() {
+//	return address;
+//}
+//public void setAddress(Address address) {
+//	this.address = address;
+//}
 public float getLat() {
 	return lat;
 }
@@ -50,5 +49,4 @@ public float getLng() {
 public void setLng(float lng) {
 	this.lng = lng;
 }
-
 }

@@ -1,0 +1,21 @@
+package com.wolox.challenge.repository;
+
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.wolox.challenge.domain.Comment;
+
+@Repository
+public class CommentsRepositoryImpl {
+
+	public String findByName(String text) {
+//		EntityManager manager;
+//		Query q = manager.createNamedQuery("select * from comments where name like '%"+text+"%'",Comment.class);
+//		q.toString();
+		return "Thist is una prueba"+text;
+	}
+}

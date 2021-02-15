@@ -1,0 +1,13 @@
+package com.wolox.challenge.repository;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.wolox.challenge.domain.Comment;
+
+@Repository
+public interface ICommentsRepository extends CrudRepository<Comment, Integer> {
+	public List<Comment> findByName(String name);
+}

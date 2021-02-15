@@ -1,0 +1,10 @@
+package com.wolox.challenge.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.wolox.challenge.domain.Photo;
+import com.wolox.challenge.domain.user.User;
+
+public interface IGenericRepository<T,I> extends CrudRepository<User, Integer> {
+
+}

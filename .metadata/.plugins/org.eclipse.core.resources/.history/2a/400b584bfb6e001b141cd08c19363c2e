@@ -1,0 +1,33 @@
+package com.wolox.challenge.controllers;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wolox.challenge.domain.Comment;
+import com.wolox.challenge.exception.ExceptionDataBase;
+import com.wolox.challenge.repository.ICommentsRepository;
+
+@RestController
+public class ControllerComments {
+
+	private static final Logger log = LoggerFactory.getLogger(ControllerPhotos.class);
+	
+	@Autowired
+	private ICommentsRepository repoComments;
+	
+	@GetMapping("/v1/comment/name/{text}")
+	public List<Comment> getCommentNameFind(){
+		try {
+			return (List<Comment>) repoComments.findAll();
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase(String.format("Error Información no Recuperada. %s",e));
+		}
+		
+	}
+}

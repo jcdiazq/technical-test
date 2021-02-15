@@ -1,9 +1,11 @@
 package com.wolox.challenge.repository;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.wolox.challenge.domain.Photo;
 
-public interface IPhotosRepository<T,I> extends CrudRepository<Photo, Integer> {
+@Repository
+public interface IPhotosRepository extends CrudRepository<Photo, Integer> {
 
 }
