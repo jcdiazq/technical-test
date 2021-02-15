@@ -16,10 +16,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Comment {
 	public Comment() {
 	}
-
-	private int postId;
+	
 	@Id
 	private int id;
+	private int postId;
 	private String name;
 	private String email;
 	@Lob

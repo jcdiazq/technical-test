@@ -1,0 +1,51 @@
+package com.wolox.challenge.controllers;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wolox.challenge.domain.Comment;
+import com.wolox.challenge.exception.ExceptionDataBase;
+import com.wolox.challenge.repository.ICommentsRepository;
+
+@RestController
+public class ControllerComments {
+
+	private static final Logger log = LoggerFactory.getLogger(ControllerComments.class);
+	
+	@Autowired
+	private ICommentsRepository repoComments;
+	
+//	@GetMapping("/v1/comments")
+//	public List<Comment> getAllComments(){
+//		return (List<Comment>) repoComments.findAll();
+//	}
+	
+	@GetMapping("/v1/comments/name/{text}")
+	public List<Comment> getCommentByName(@PathVariable String text){
+		try {
+			return (List<Comment>) repoComments.findByName(text);
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase(String.format("Error Información no Recuperada. %s",e));
+		}
+	}
+	
+	@GetMapping("/v1/comments")
+	public List<Comment> getCommentByUser(@RequestParam(value="userid") int userid){
+		try {
+			return (List<Comment>) repoComments.findByUserId(userid);
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase(String.format("Error Información no Recuperada. %s",e));
+		}
+		
+	}
+}

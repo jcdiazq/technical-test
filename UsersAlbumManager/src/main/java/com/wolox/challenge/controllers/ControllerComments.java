@@ -23,16 +23,32 @@ public class ControllerComments {
 	
 	@GetMapping("/v1/comments")
 	public List<Comment> getAllComments(){
+		try {
 		return (List<Comment>) repoComments.findAll();
+	} catch (Exception e) {
+		log.error(String.format("Se presentó un error en la consulta. %s", e));
+		throw new ExceptionDataBase(String.format("Error Información no Recuperada. %s",e));
+	}
 	}
 	
 	@GetMapping("/v1/comments/name/{text}")
-	public List<Comment> getCommentNameFind(@PathVariable String text){
+	public List<Comment> getCommentByName(@PathVariable final String text){
 		try {
 			return (List<Comment>) repoComments.findByName(text);
 		} catch (Exception e) {
 			log.error(String.format("Se presentó un error en la consulta. %s", e));
 			throw new ExceptionDataBase(String.format("Error Información no Recuperada. %s",e));
 		}
+	}
+	
+	@GetMapping("/v1/comments/userid/{id}")
+	public List<Comment> getCommentByUser(@PathVariable final int id){
+		try {
+			return (List<Comment>) repoComments.findByUserId(id);
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase(String.format("Error Información no Recuperada. %s",e));
+		}
+		
 	}
 }
