@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wolox.challenge.domain.user.User;
@@ -29,11 +30,15 @@ public class ControllerUsers {
 			throw new ExceptionDataBase("Error Información no Recuperada.");
 		}
 	}
-
-//	for (var obj : object) {
-//	ObjectMapper objectMapper = new ObjectMapper();
-//	String json = objectMapper.writeValueAsString(obj);
-//	log.info(json);		
-//}
-
+	
+	@GetMapping("/v1/users/shared-albums")
+	public List<User> findByUser(@RequestParam(value="albumId", required=true) int albumId,
+			@RequestParam(value="toWrite", required=true) boolean toWrite){
+		try {
+			return (List<User>) repoUsers.findByAlbumsPermits(albumId, toWrite);
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase("Error Información no Recuperada.");
+		}
+	}
 }

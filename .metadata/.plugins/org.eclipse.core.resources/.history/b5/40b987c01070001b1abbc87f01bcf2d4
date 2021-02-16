@@ -1,0 +1,96 @@
+package com.wolox.challenge.controllers;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wolox.challenge.domain.AlbumPermission;
+import com.wolox.challenge.exception.ExceptionDataBase;
+import com.wolox.challenge.repository.IAlbumsPermitsRepository;
+import com.wolox.challenge.repository.IUsersRepository;
+
+@RestController
+public class ControllerAlbumsPermissions {
+
+	private static final Logger log = LoggerFactory.getLogger(ControllerAlbums.class);
+
+	@Autowired
+	private IAlbumsPermitsRepository repoAlbumsPermits;
+
+	@Autowired
+	private IAlbumsPermitsRepository repoAlbums;
+
+	@Autowired
+	private IUsersRepository repoUsers;
+
+	
+	@GetMapping("/v1/albums-permits")
+	public List<AlbumPermission> getAllAlbumsPermits(){
+		try {
+				return (List<AlbumPermission>) repoAlbumsPermits.findAll();
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase("Error Al Recuperar los Datos.");			
+		}
+
+	}
+
+	@PostMapping(value="/v1/albums-permits", consumes=MediaType.APPLICATION_JSON_VALUE, produces= {MediaType.APPLICATION_JSON_VALUE})
+	public AlbumPermission createAlbumPermit(@RequestBody final AlbumPermission albumPermit) {
+		try {
+			if (repoUsers.existsById(albumPermit.getUserId()) && repoAlbums.existsById(albumPermit.getAlbumId())) {
+				return repoAlbumsPermits.save(albumPermit);
+			}else {
+				log.warn("Error Usuario o Album no Exite.");
+				throw new ExceptionDataBase("Error Usuario o Album no Exite.");
+			}
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase("Error Al Guardar el Registro o Duplicado.");
+		}
+	}
+
+	@PutMapping(value="/v1/albums-permits/{id}", consumes=MediaType.APPLICATION_JSON_VALUE, produces= {MediaType.APPLICATION_JSON_VALUE})
+	public AlbumPermission updateAlbumPermit(@PathVariable(value="id") final int id, @RequestBody AlbumPermission albumPermit) {
+		try {
+			if(id != 0 && repoUsers.existsById(albumPermit.getUserId()) && repoAlbums.existsById(albumPermit.getAlbumId())) {
+				albumPermit.setId(id);
+				return repoAlbumsPermits.save(albumPermit);
+			}else {
+				throw new ExceptionDataBase("Error en Id o IdUsuario / IdAlbum invalidos.");
+			}
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error en la consulta. %s", e));
+			throw new ExceptionDataBase("Error Al Guardar el Registro o Duplicado.");
+		}
+	}
+
+	@DeleteMapping(value="/v1/albums-permits/{id}")
+	public AlbumPermission delAlbumPermission(@PathVariable final int id) {
+		try {
+			if(repoAlbumsPermits.existsById(id))
+			{
+				AlbumPermission removeAlbumsPermit = repoAlbumsPermits.findById(id); 
+				repoAlbumsPermits.deleteById(id); 
+				return removeAlbumsPermit;
+			}else {
+				throw new ExceptionDataBase("Id a Eliminar no encontrado.");
+			}
+		} catch (Exception e) {
+			log.error(String.format("Se presentó un error eliminando registro. %s", e));
+			throw new ExceptionDataBase("Error eliminando el registro");
+		}
+
+	}
+
+}

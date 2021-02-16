@@ -1,0 +1,23 @@
+package com.wolox.challenge.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wolox.challenge.domain.AlbumPermission;
+import com.wolox.challenge.repository.IAlbumsPermitsRepository;
+
+@RestController
+public class ControllerAlbumsPermissions {
+	
+	@Autowired
+	private IAlbumsPermitsRepository repoAlbumsPermits;
+	
+	@GetMapping("/v1/albums-permits")
+	public List<AlbumPermission> getAllAlbumsPermits(){
+		return (List<AlbumPermission>) repoAlbumsPermits.findAll();
+	}
+
+}

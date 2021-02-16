@@ -1,0 +1,10 @@
+package com.wolox.challenge.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.wolox.challenge.domain.AlbumPermission;
+
+public interface IAlbumsPermitsRepository extends CrudRepository<AlbumPermission, Integer> {
+	
+	AlbumPermission findById(int id);
+}

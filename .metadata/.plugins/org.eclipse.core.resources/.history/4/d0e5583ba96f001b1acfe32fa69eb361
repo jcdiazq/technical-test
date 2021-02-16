@@ -1,0 +1,5 @@
+package com.wolox.challenge.repository;
+
+public interface IAlbumsPermissions {
+
+}
