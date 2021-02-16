@@ -1,0 +1,5 @@
+package com.wolox.challenge.documentationApi;
+
+public class SwaggerConfig {
+
+}
